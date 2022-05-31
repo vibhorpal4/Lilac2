@@ -18,13 +18,23 @@ const NavBar = () => {
   const { isCartOpen, isAuthCardOpen, isAuthenticated } = useSelector(
     (state) => state.globalSlice
   );
-  const { data } = useGetCartQuery();
+  const { data, isError, error } = useGetCartQuery();
 
   const [logout, setLogout] = useState(false);
 
   const logoutQuery = useLogoutQuery(!logout ? skipToken : undefined);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (error) {
+      alert(error.data.message);
+    }
+    if (logoutQuery[1].error) {
+      alert(logoutQuery[1].error.data.message);
+    }
+  }, [isError || logoutQuery[1].isError]);
+
   const handleCart = () => {
     dispatch(cartAction(!isCartOpen));
   };

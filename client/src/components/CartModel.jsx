@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import {
   useGetCartQuery,
@@ -13,6 +13,15 @@ const CartModel = () => {
   const { data, isLoading, isFetching, error, isError } = useGetCartQuery();
   const dispatch = useDispatch();
   const removeFromCart = useRemoveProductFromCartMutation();
+
+  useEffect(() => {
+    if (error) {
+      alert(error.data.message);
+    }
+    if (removeFromCart[1].error) {
+      alert(removeFromCart[1].error.data.message);
+    }
+  }, [isError || removeFromCart[1].isError]);
 
   const handleRemoveFromCart = async (id) => {
     try {

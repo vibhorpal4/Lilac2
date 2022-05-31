@@ -18,10 +18,13 @@ const ProductsComponent = () => {
   }, [addToCart[1].isSuccess]);
 
   useEffect(() => {
-    if (addToCart[1].error) {
-      console.log(addToCart[1].error.data.message);
+    if (error) {
+      alert(error.data.message);
     }
-  }, [addToCart[1].isError]);
+    if (addToCart[1].error) {
+      alert(addToCart[1].error.data.message);
+    }
+  }, [addToCart[1].isError || isError]);
 
   const handleAddToCart = async (id) => {
     try {

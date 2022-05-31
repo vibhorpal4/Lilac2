@@ -36,7 +36,7 @@ const AuthCard = () => {
 
   useEffect(() => {
     if (login[1].error) {
-      console.log(login[1].error?.data?.message);
+      alert(login[1].error?.data?.message);
     }
   }, [login[1].isError]);
 
@@ -49,7 +49,7 @@ const AuthCard = () => {
 
   useEffect(() => {
     if (register[1].error) {
-      console.log(register[1].error?.data?.message);
+      alert(register[1].error?.data?.message);
     }
   }, [register[1].isError]);
 
