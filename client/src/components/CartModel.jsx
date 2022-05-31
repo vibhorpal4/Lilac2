@@ -16,12 +16,12 @@ const CartModel = () => {
 
   useEffect(() => {
     if (error) {
-      alert(error.data.message);
+      alert(error?.data?.message);
     }
-    if (removeFromCart[1].error) {
-      alert(removeFromCart[1].error.data.message);
+    if (removeFromCart[1]?.error) {
+      alert(removeFromCart[1].error?.data.message);
     }
-  }, [isError || removeFromCart[1].isError]);
+  }, [isError || removeFromCart[1]?.isError]);
 
   const handleRemoveFromCart = async (id) => {
     try {

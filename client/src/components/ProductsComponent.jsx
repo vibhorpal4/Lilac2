@@ -12,19 +12,19 @@ const ProductsComponent = () => {
   const addToCart = useAddToCartProductMutation();
 
   useEffect(() => {
-    if (addToCart[1].data) {
-      console.log(addToCart[1].data.message);
+    if (addToCart[1]?.data) {
+      console.log(addToCart[1]?.data?.message);
     }
-  }, [addToCart[1].isSuccess]);
+  }, [addToCart[1]?.isSuccess]);
 
   useEffect(() => {
     if (error) {
-      alert(error.data.message);
+      alert(error?.data?.message);
     }
-    if (addToCart[1].error) {
-      alert(addToCart[1].error.data.message);
+    if (addToCart[1]?.error) {
+      alert(addToCart[1]?.error?.data?.message);
     }
-  }, [addToCart[1].isError || isError]);
+  }, [addToCart[1]?.isError || isError]);
 
   const handleAddToCart = async (id) => {
     try {

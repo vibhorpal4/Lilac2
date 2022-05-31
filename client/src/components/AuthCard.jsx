@@ -38,20 +38,20 @@ const AuthCard = () => {
     if (login[1].error) {
       alert(login[1].error?.data?.message);
     }
-  }, [login[1].isError]);
+  }, [login[1]?.isError]);
 
   useEffect(() => {
-    if (register[1].data) {
+    if (register[1]?.data) {
       console.log(register[1].data?.message);
       dispatch(authCardAction(false));
     }
-  }, [register[1].isSuccess]);
+  }, [register[1]?.isSuccess]);
 
   useEffect(() => {
-    if (register[1].error) {
+    if (register[1]?.error) {
       alert(register[1].error?.data?.message);
     }
-  }, [register[1].isError]);
+  }, [register[1]?.isError]);
 
   const handleLogin = async () => {
     try {

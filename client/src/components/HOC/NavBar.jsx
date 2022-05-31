@@ -30,10 +30,10 @@ const NavBar = () => {
     if (error) {
       alert(error.data.message);
     }
-    if (logoutQuery[1].error) {
-      alert(logoutQuery[1].error.data.message);
+    if (logoutQuery[1]?.error) {
+      alert(logoutQuery[1]?.error?.data?.message);
     }
-  }, [isError || logoutQuery[1].isError]);
+  }, [isError || logoutQuery[1]?.isError]);
 
   const handleCart = () => {
     dispatch(cartAction(!isCartOpen));
@@ -50,7 +50,7 @@ const NavBar = () => {
     if (logoutQuery[1]?.data) {
       console.log(logoutQuery[1].data?.message);
     }
-  }, [logoutQuery.isSuccess]);
+  }, [logoutQuery?.isSuccess]);
 
   const handleLogout = async () => {
     try {
