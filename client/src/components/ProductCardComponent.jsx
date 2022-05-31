@@ -1,14 +1,17 @@
 import React from "react";
 import styled from "styled-components";
 
-const ProductCardComponent = ({ image, price, name, onChnage }) => {
+const ProductCardComponent = ({ image, price, name, onClick, stock }) => {
   return (
     <Container>
       <ProductImage src={image} />
       <ProductDetails>
-        <Price>${price}</Price>
+        <PriceContainer>
+          <Price>${price}</Price>
+          <Stock>In Stock: {stock}</Stock>
+        </PriceContainer>
         <Name>{name}</Name>
-        <Button>Add to Cart</Button>
+        <Button onClick={onClick}>Add to Cart</Button>
       </ProductDetails>
     </Container>
   );
@@ -34,10 +37,22 @@ const ProductDetails = styled.div`
   flex-direction: column;
 `;
 
+const PriceContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
+
 const Price = styled.span`
   font-weight: 600;
   font-size: 24px;
   line-height: 36px;
+`;
+
+const Stock = styled.span`
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
 `;
 
 const Name = styled.span`

@@ -1,21 +1,78 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { MdShoppingCart } from "react-icons/md";
 import Badge from "@mui/material/Badge";
+import { useDispatch, useSelector } from "react-redux";
+import CartModel from "../CartModel";
+import {
+  authAction,
+  authCardAction,
+  cartAction,
+} from "../../redux/slices/globalSlice";
+import { useGetCartQuery } from "../../redux/services/productApi";
+import Cookie from "js-cookie";
+import { useLogoutQuery } from "../../redux/services/authApi";
+import { skipToken } from "@reduxjs/toolkit/dist/query";
 
 const NavBar = () => {
+  const { isCartOpen, isAuthCardOpen, isAuthenticated } = useSelector(
+    (state) => state.globalSlice
+  );
+  const { data } = useGetCartQuery();
+
+  const [logout, setLogout] = useState(false);
+
+  const logoutQuery = useLogoutQuery(!logout ? skipToken : undefined);
+
+  const dispatch = useDispatch();
+  const handleCart = () => {
+    dispatch(cartAction(!isCartOpen));
+  };
+
+  const authToken = Cookie.get("authToken");
+  if (authToken) {
+    dispatch(authAction(true));
+  } else {
+    dispatch(authAction(false));
+  }
+
+  useEffect(() => {
+    if (logoutQuery[1]?.data) {
+      console.log(logoutQuery[1].data?.message);
+    }
+  }, [logoutQuery.isSuccess]);
+
+  const handleLogout = async () => {
+    try {
+      setLogout(true);
+      Cookie.remove("authToken");
+      dispatch(authAction(false));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
+      {isCartOpen && <CartModel />}
       <LeftContainer>
         <Logo>SHOP</Logo>
       </LeftContainer>
       <RightContainer>
-        <IconContainer>
-          <Badge badgeContent={4} color="primary">
+        <IconContainer onClick={handleCart}>
+          <Badge badgeContent={data?.cart?.products.length} color="primary">
             <MdShoppingCart size={25} />
           </Badge>
         </IconContainer>
-        <LoginButton>Login</LoginButton>
+        {!isAuthenticated ? (
+          <LoginButton
+            onClick={() => dispatch(authCardAction(!isAuthCardOpen))}
+          >
+            Login
+          </LoginButton>
+        ) : (
+          <LoginButton onClick={handleLogout}>Logout</LoginButton>
+        )}
       </RightContainer>
     </Container>
   );

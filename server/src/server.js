@@ -8,6 +8,8 @@ import connectDB from "./configs/db.js";
 
 //importing routes
 import authRoutes from "./routes/authRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
 
 //Handling Uncaught Exception
 process.on("uncaughtException", (error) => {
@@ -18,6 +20,8 @@ process.on("uncaughtException", (error) => {
 
 //initilizing routes or making apis
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/products", productRoutes);
+app.use("/api/v1/cart", cartRoutes);
 
 //connecting Datanbase
 connectDB();

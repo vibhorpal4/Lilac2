@@ -1,70 +1,54 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
+import {
+  useAddToCartProductMutation,
+  useGetAllProductsQuery,
+} from "../redux/services/productApi";
 import ProductCardComponent from "./ProductCardComponent";
 
 const ProductsComponent = () => {
+  const { data, isError, error, isFetching, isLoading } =
+    useGetAllProductsQuery();
+  const addToCart = useAddToCartProductMutation();
+
+  useEffect(() => {
+    if (addToCart[1].data) {
+      console.log(addToCart[1].data.message);
+    }
+  }, [addToCart[1].isSuccess]);
+
+  useEffect(() => {
+    if (addToCart[1].error) {
+      console.log(addToCart[1].error.data.message);
+    }
+  }, [addToCart[1].isError]);
+
+  const handleAddToCart = async (id) => {
+    try {
+      // console.log(id);
+      await addToCart[0](id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <Container>
-      <ProductCardComponent
-        name="iPhone 12 With Facetime 128GB Blue 5G Specs"
-        price="1,245"
-        image="https://s3-alpha-sig.figma.com/img/5a06/3dce/ce5d37abd874fecebfe5634e9c707b90?Expires=1655078400&Signature=KXgR9YAt9DWd4EzDNwsA8IUsq-qLGRVQJBG9HmXQkdKGBwY-vigpt2CRRi2fsROmKIAPSbhsBi~tblrZExuK0ixTqPKNGhiSOTl9IWqVa9Etky-7F6pygCV-2qkIzAWGIsValZpTKKAx-9hMzL1Zn~GZYPLKAKjmM7HzB07CmGvwvROtAM8n9ydpmtxDR7TGTg0hQ-rdjXe2sxXQbY2zIQI1679cipu6AcgkkjStblorywGUj~rvr92782Ou3Ylu0qPuqweCYM9smVniXte0AuToN41q1UilaAAprseXXxZz3PZHyDqRUqWP5VgG56HpgXDNk9aga83px8ON-Zghpw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-      />
-      <ProductCardComponent
-        name="iPhone 12 With Facetime 128GB Blue 5G Specs"
-        price="1,245"
-        image="https://s3-alpha-sig.figma.com/img/5a06/3dce/ce5d37abd874fecebfe5634e9c707b90?Expires=1655078400&Signature=KXgR9YAt9DWd4EzDNwsA8IUsq-qLGRVQJBG9HmXQkdKGBwY-vigpt2CRRi2fsROmKIAPSbhsBi~tblrZExuK0ixTqPKNGhiSOTl9IWqVa9Etky-7F6pygCV-2qkIzAWGIsValZpTKKAx-9hMzL1Zn~GZYPLKAKjmM7HzB07CmGvwvROtAM8n9ydpmtxDR7TGTg0hQ-rdjXe2sxXQbY2zIQI1679cipu6AcgkkjStblorywGUj~rvr92782Ou3Ylu0qPuqweCYM9smVniXte0AuToN41q1UilaAAprseXXxZz3PZHyDqRUqWP5VgG56HpgXDNk9aga83px8ON-Zghpw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-      />
-      <ProductCardComponent
-        name="iPhone 12 With Facetime 128GB Blue 5G Specs"
-        price="1,245"
-        image="https://s3-alpha-sig.figma.com/img/5a06/3dce/ce5d37abd874fecebfe5634e9c707b90?Expires=1655078400&Signature=KXgR9YAt9DWd4EzDNwsA8IUsq-qLGRVQJBG9HmXQkdKGBwY-vigpt2CRRi2fsROmKIAPSbhsBi~tblrZExuK0ixTqPKNGhiSOTl9IWqVa9Etky-7F6pygCV-2qkIzAWGIsValZpTKKAx-9hMzL1Zn~GZYPLKAKjmM7HzB07CmGvwvROtAM8n9ydpmtxDR7TGTg0hQ-rdjXe2sxXQbY2zIQI1679cipu6AcgkkjStblorywGUj~rvr92782Ou3Ylu0qPuqweCYM9smVniXte0AuToN41q1UilaAAprseXXxZz3PZHyDqRUqWP5VgG56HpgXDNk9aga83px8ON-Zghpw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-      />
-      <ProductCardComponent
-        name="iPhone 12 With Facetime 128GB Blue 5G Specs"
-        price="1,245"
-        image="https://s3-alpha-sig.figma.com/img/5a06/3dce/ce5d37abd874fecebfe5634e9c707b90?Expires=1655078400&Signature=KXgR9YAt9DWd4EzDNwsA8IUsq-qLGRVQJBG9HmXQkdKGBwY-vigpt2CRRi2fsROmKIAPSbhsBi~tblrZExuK0ixTqPKNGhiSOTl9IWqVa9Etky-7F6pygCV-2qkIzAWGIsValZpTKKAx-9hMzL1Zn~GZYPLKAKjmM7HzB07CmGvwvROtAM8n9ydpmtxDR7TGTg0hQ-rdjXe2sxXQbY2zIQI1679cipu6AcgkkjStblorywGUj~rvr92782Ou3Ylu0qPuqweCYM9smVniXte0AuToN41q1UilaAAprseXXxZz3PZHyDqRUqWP5VgG56HpgXDNk9aga83px8ON-Zghpw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-      />
-      <ProductCardComponent
-        name="iPhone 12 With Facetime 128GB Blue 5G Specs"
-        price="1,245"
-        image="https://s3-alpha-sig.figma.com/img/5a06/3dce/ce5d37abd874fecebfe5634e9c707b90?Expires=1655078400&Signature=KXgR9YAt9DWd4EzDNwsA8IUsq-qLGRVQJBG9HmXQkdKGBwY-vigpt2CRRi2fsROmKIAPSbhsBi~tblrZExuK0ixTqPKNGhiSOTl9IWqVa9Etky-7F6pygCV-2qkIzAWGIsValZpTKKAx-9hMzL1Zn~GZYPLKAKjmM7HzB07CmGvwvROtAM8n9ydpmtxDR7TGTg0hQ-rdjXe2sxXQbY2zIQI1679cipu6AcgkkjStblorywGUj~rvr92782Ou3Ylu0qPuqweCYM9smVniXte0AuToN41q1UilaAAprseXXxZz3PZHyDqRUqWP5VgG56HpgXDNk9aga83px8ON-Zghpw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-      />
-      <ProductCardComponent
-        name="iPhone 12 With Facetime 128GB Blue 5G Specs"
-        price="1,245"
-        image="https://s3-alpha-sig.figma.com/img/5a06/3dce/ce5d37abd874fecebfe5634e9c707b90?Expires=1655078400&Signature=KXgR9YAt9DWd4EzDNwsA8IUsq-qLGRVQJBG9HmXQkdKGBwY-vigpt2CRRi2fsROmKIAPSbhsBi~tblrZExuK0ixTqPKNGhiSOTl9IWqVa9Etky-7F6pygCV-2qkIzAWGIsValZpTKKAx-9hMzL1Zn~GZYPLKAKjmM7HzB07CmGvwvROtAM8n9ydpmtxDR7TGTg0hQ-rdjXe2sxXQbY2zIQI1679cipu6AcgkkjStblorywGUj~rvr92782Ou3Ylu0qPuqweCYM9smVniXte0AuToN41q1UilaAAprseXXxZz3PZHyDqRUqWP5VgG56HpgXDNk9aga83px8ON-Zghpw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-      />
-      <ProductCardComponent
-        name="iPhone 12 With Facetime 128GB Blue 5G Specs"
-        price="1,245"
-        image="https://s3-alpha-sig.figma.com/img/5a06/3dce/ce5d37abd874fecebfe5634e9c707b90?Expires=1655078400&Signature=KXgR9YAt9DWd4EzDNwsA8IUsq-qLGRVQJBG9HmXQkdKGBwY-vigpt2CRRi2fsROmKIAPSbhsBi~tblrZExuK0ixTqPKNGhiSOTl9IWqVa9Etky-7F6pygCV-2qkIzAWGIsValZpTKKAx-9hMzL1Zn~GZYPLKAKjmM7HzB07CmGvwvROtAM8n9ydpmtxDR7TGTg0hQ-rdjXe2sxXQbY2zIQI1679cipu6AcgkkjStblorywGUj~rvr92782Ou3Ylu0qPuqweCYM9smVniXte0AuToN41q1UilaAAprseXXxZz3PZHyDqRUqWP5VgG56HpgXDNk9aga83px8ON-Zghpw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-      />
-      <ProductCardComponent
-        name="iPhone 12 With Facetime 128GB Blue 5G Specs"
-        price="1,245"
-        image="https://s3-alpha-sig.figma.com/img/5a06/3dce/ce5d37abd874fecebfe5634e9c707b90?Expires=1655078400&Signature=KXgR9YAt9DWd4EzDNwsA8IUsq-qLGRVQJBG9HmXQkdKGBwY-vigpt2CRRi2fsROmKIAPSbhsBi~tblrZExuK0ixTqPKNGhiSOTl9IWqVa9Etky-7F6pygCV-2qkIzAWGIsValZpTKKAx-9hMzL1Zn~GZYPLKAKjmM7HzB07CmGvwvROtAM8n9ydpmtxDR7TGTg0hQ-rdjXe2sxXQbY2zIQI1679cipu6AcgkkjStblorywGUj~rvr92782Ou3Ylu0qPuqweCYM9smVniXte0AuToN41q1UilaAAprseXXxZz3PZHyDqRUqWP5VgG56HpgXDNk9aga83px8ON-Zghpw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-      />
-      <ProductCardComponent
-        name="iPhone 12 With Facetime 128GB Blue 5G Specs"
-        price="1,245"
-        image="https://s3-alpha-sig.figma.com/img/5a06/3dce/ce5d37abd874fecebfe5634e9c707b90?Expires=1655078400&Signature=KXgR9YAt9DWd4EzDNwsA8IUsq-qLGRVQJBG9HmXQkdKGBwY-vigpt2CRRi2fsROmKIAPSbhsBi~tblrZExuK0ixTqPKNGhiSOTl9IWqVa9Etky-7F6pygCV-2qkIzAWGIsValZpTKKAx-9hMzL1Zn~GZYPLKAKjmM7HzB07CmGvwvROtAM8n9ydpmtxDR7TGTg0hQ-rdjXe2sxXQbY2zIQI1679cipu6AcgkkjStblorywGUj~rvr92782Ou3Ylu0qPuqweCYM9smVniXte0AuToN41q1UilaAAprseXXxZz3PZHyDqRUqWP5VgG56HpgXDNk9aga83px8ON-Zghpw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-      />
-      <ProductCardComponent
-        name="iPhone 12 With Facetime 128GB Blue 5G Specs"
-        price="1,245"
-        image="https://s3-alpha-sig.figma.com/img/5a06/3dce/ce5d37abd874fecebfe5634e9c707b90?Expires=1655078400&Signature=KXgR9YAt9DWd4EzDNwsA8IUsq-qLGRVQJBG9HmXQkdKGBwY-vigpt2CRRi2fsROmKIAPSbhsBi~tblrZExuK0ixTqPKNGhiSOTl9IWqVa9Etky-7F6pygCV-2qkIzAWGIsValZpTKKAx-9hMzL1Zn~GZYPLKAKjmM7HzB07CmGvwvROtAM8n9ydpmtxDR7TGTg0hQ-rdjXe2sxXQbY2zIQI1679cipu6AcgkkjStblorywGUj~rvr92782Ou3Ylu0qPuqweCYM9smVniXte0AuToN41q1UilaAAprseXXxZz3PZHyDqRUqWP5VgG56HpgXDNk9aga83px8ON-Zghpw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-      />
-      <ProductCardComponent
-        name="iPhone 12 With Facetime 128GB Blue 5G Specs"
-        price="1,245"
-        image="https://s3-alpha-sig.figma.com/img/5a06/3dce/ce5d37abd874fecebfe5634e9c707b90?Expires=1655078400&Signature=KXgR9YAt9DWd4EzDNwsA8IUsq-qLGRVQJBG9HmXQkdKGBwY-vigpt2CRRi2fsROmKIAPSbhsBi~tblrZExuK0ixTqPKNGhiSOTl9IWqVa9Etky-7F6pygCV-2qkIzAWGIsValZpTKKAx-9hMzL1Zn~GZYPLKAKjmM7HzB07CmGvwvROtAM8n9ydpmtxDR7TGTg0hQ-rdjXe2sxXQbY2zIQI1679cipu6AcgkkjStblorywGUj~rvr92782Ou3Ylu0qPuqweCYM9smVniXte0AuToN41q1UilaAAprseXXxZz3PZHyDqRUqWP5VgG56HpgXDNk9aga83px8ON-Zghpw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-      />
-      <ProductCardComponent
-        name="iPhone 12 With Facetime 128GB Blue 5G Specs"
-        price="1,245"
-        image="https://s3-alpha-sig.figma.com/img/5a06/3dce/ce5d37abd874fecebfe5634e9c707b90?Expires=1655078400&Signature=KXgR9YAt9DWd4EzDNwsA8IUsq-qLGRVQJBG9HmXQkdKGBwY-vigpt2CRRi2fsROmKIAPSbhsBi~tblrZExuK0ixTqPKNGhiSOTl9IWqVa9Etky-7F6pygCV-2qkIzAWGIsValZpTKKAx-9hMzL1Zn~GZYPLKAKjmM7HzB07CmGvwvROtAM8n9ydpmtxDR7TGTg0hQ-rdjXe2sxXQbY2zIQI1679cipu6AcgkkjStblorywGUj~rvr92782Ou3Ylu0qPuqweCYM9smVniXte0AuToN41q1UilaAAprseXXxZz3PZHyDqRUqWP5VgG56HpgXDNk9aga83px8ON-Zghpw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
-      />
+      {isLoading || isFetching ? (
+        <span>Loading...</span>
+      ) : data.products.length <= 0 ? (
+        <span>No Product Found</span>
+      ) : (
+        data.products.map((product, index) => (
+          <ProductCardComponent
+            name={product.name}
+            price={product.price}
+            image={product.image}
+            onClick={() => handleAddToCart(product._id)}
+            stock={product.stock}
+          />
+        ))
+      )}
     </Container>
   );
 };
